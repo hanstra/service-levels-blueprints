@@ -1,7 +1,7 @@
 {
   "@aws-cdk/core:enableStackNameDuplicates": "true",
   "aws-cdk:enableDiffNoFail": "true",
-  "library-do-email": "",
+  "duty-officer-email": "hesburgh-libraries-duty-office-list@nd.edu",
   "library-slos": [
     { "title": "Library - CDN", "type": "CloudfrontAvailability", "distributionId": "E1560Z89H1UDHK", "sloThreshold": 0.999 },
     { "title": "Library - CDN", "type": "CloudfrontLatency", "distributionId": "E1560Z89H1UDHK", "sloThreshold": 0.95, "latencyThreshold": 1300 },
@@ -29,7 +29,6 @@
     { "title": "Gatekeeper", "type": "ApiLatency", "apiName": "gatekeeper-prod", "sloThreshold": 0.95, "latencyThreshold": 7000 },
     { "title": "Gatekeeper", "type": "ApiLatency", "apiName": "gatekeeper-prod", "sloThreshold": 0.75, "latencyThreshold": 2000 }
   ],
-  "marble-do-email": "",
   "marble-slos": [
     { "title": "Unified Website CDN", "type": "CloudfrontAvailability", "distributionId": "E1CQ4QNYUH0XVY", "sloThreshold": 0.99999 },
     { "title": "Unified Website CDN", "type": "CloudfrontLatency", "distributionId": "E1CQ4QNYUH0XVY", "sloThreshold": 0.95, "latencyThreshold": 1000 },
