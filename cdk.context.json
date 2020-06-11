@@ -43,6 +43,10 @@
 
     { "title": "User Content API", "type": "ApiAvailability", "apiName": "Marble User Content Service", "sloThreshold": 0.97 },
     { "title": "User Content API", "type": "ApiLatency", "apiName": "Marble User Content Service", "sloThreshold": 0.95, "latencyThreshold": 500 },
-    { "title": "User Content API", "type": "ApiLatency", "apiName": "Marble User Content Service", "sloThreshold": 0.99, "latencyThreshold": 2000 }
+    { "title": "User Content API", "type": "ApiLatency", "apiName": "Marble User Content Service", "sloThreshold": 0.99, "latencyThreshold": 2000 },
+
+    { "title": "Search API", "type": "ElasticSearchAvailability", "accountId": "230391840102", "domainName": "marble-elasticsearch-prod", "sloThreshold": 0.99 },
+    { "title": "Search API", "type": "ElasticSearchLatency", "accountId": "230391840102", "domainName": "marble-elasticsearch-prod", "sloThreshold": 0.95, "latencyThreshold": 200 },
+    { "title": "Search API", "type": "ElasticSearchLatency", "accountId": "230391840102", "domainName": "marble-elasticsearch-prod", "sloThreshold": 0.99, "latencyThreshold": 1000 }
   ]
 }
