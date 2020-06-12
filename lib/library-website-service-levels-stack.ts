@@ -26,7 +26,7 @@ export class LibraryWebsiteServiceLevelsStack extends cdk.Stack {
     });
     
     alarms.alarms.forEach(alarm => alarm.parentAlarm.alarmDescription += 'SLOs: https://docs.google.com/document/d/1-paQMPqATFgUxDyER55Gd1J_JtWS8SWOo_KkWbLnu6w/edit\n')
-    const email = scope.node.tryGetContext('library-do-email');
+    const email = scope.node.tryGetContext('duty-officer-email');
     
     if(email && email !== '') {
       alarms.topics.High.addSubscription(new subs.EmailSubscription(email));
