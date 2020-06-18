@@ -37,6 +37,5 @@ export class LibraryWebsiteServiceLevelsStack extends cdk.Stack {
     // const text = scope.node.tryGetContext('text');
     // if(text && text !== '')
     //   alarms.topics.High.addSubscription(new subs.SmsSubscription(text));
-
   }
 }
