@@ -4,8 +4,13 @@
   "bin": {
     "service-levels-blueprints": "bin/service-levels-blueprints.js"
   },
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
     "build": "tsc",
+    "format": "tslint --fix -p tsconfig.json && prettier --write \"@(src|tests)/**/*.@(ts|js|json|md|yml)\" \"*.@(ts|js|json|md|yml)\"",
+    "lint": "tslint -p tsconfig.json && prettier --check \"@(src|tests)/**/*.@(ts|js|json|md|yml)\" \"*.@(ts|js|json|md|yml)\"",
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk"
@@ -16,8 +21,11 @@
     "@types/node": "14.0.13",
     "aws-cdk": "^1.46.0",
     "jest": "^26.0.1",
+    "prettier": "^2.0.5",
     "ts-jest": "^26.1.0",
     "ts-node": "^8.10.2",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "~3.9.5"
   },
   "dependencies": {
