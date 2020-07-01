@@ -11,7 +11,13 @@ const lambdas: string[] = [
   "monarchLibguides-prod-hours",
   "monarchLibguides-prod-newEvent",
 ];
-const header = widgets.header("Hours API", "Brief description");
+const desc = `
+The Hours API, which corresponds to the Monarch LibGuides service, has **two primary endpoints that connect to Springshare LibApps** service APIs. This service:
+
+* Pulls hours information from LibCal
+* Updates Contentful with event information
+`;
+const header = widgets.header("Hours API", desc, 3);
 const requests = widgets.apiRequests(apiName, stage);
 const methodRequests = widgets.apiMethodRequests(apiName, stage, methods);
 const errors = widgets.apiErrors(apiName, stage);

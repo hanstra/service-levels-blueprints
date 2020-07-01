@@ -16,21 +16,23 @@ export class DashboardsStack extends cdk.Stack {
     const start = "-PT24H";
 
     // All in one
-    new Dashboard(this, "AllServicesDashboard", {
-      dashboardName: "Library-Website-All-Services",
-      start,
-      widgets: [
-        ...summaryRows,
-        ...cdnRows,
-        ...contentApiRows,
-        ...gatekeeperApiRows,
-        ...hoursApiRows,
-        ...directoryApiRows,
-        ...mapsApiRows,
-        ...userPrefsApiRows,
-        ...classesApiRows,
-      ],
-    });
+    // This is unusable at the moment due to js inefficiencies
+    // on the CloudWatch Dashboard console
+    // new Dashboard(this, "AllServicesDashboard", {
+    //   dashboardName: "Library-Website-All-Services",
+    //   start,
+    //   widgets: [
+    //     ...summaryRows,
+    //     ...cdnRows,
+    //     ...contentApiRows,
+    //     ...gatekeeperApiRows,
+    //     ...hoursApiRows,
+    //     ...directoryApiRows,
+    //     ...mapsApiRows,
+    //     ...userPrefsApiRows,
+    //     ...classesApiRows,
+    //   ],
+    // });
 
     // Broken out into separate dashboards
     new Dashboard(this, "SummaryDashboard", {

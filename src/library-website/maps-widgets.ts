@@ -8,7 +8,12 @@ const methods: widgets.ApiResource[] = [
   { path: "/map", methods: ["GET"] },
 ];
 const lambdas: string[] = ["contentfulmaps-prod-mapquery"];
-const header = widgets.header("Maps API", "Brief description");
+const desc = `
+The Maps API, which corresponds to the contentful maps service, has **one endpoint that connects to Contentful** This service:
+
+* Queries Contentful using item record data points to return the correct map URI
+`;
+const header = widgets.header("Maps API", desc, 3);
 const requests = widgets.apiRequests(apiName, stage);
 const methodRequests = widgets.apiMethodRequests(apiName, stage, methods);
 const errors = widgets.apiErrors(apiName, stage);

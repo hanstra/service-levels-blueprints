@@ -31,7 +31,14 @@ const lambdas: string[] = [
   "gatekeeper-prod-illiad",
   "gatekeeper-prod-location",
 ];
-const header = widgets.header("Gatekeeper API", "Brief description");
+const desc = `
+The Gatekeeper API has **four primary endpoints** that interact with three upstream services which are:
+
+* Primo
+* Aleph
+* ILLiad
+`;
+const header = widgets.header("Gatekeeper API", desc, 3);
 const requests = widgets.apiRequests(apiName, stage);
 const methodRequests = widgets.apiMethodRequests(apiName, stage, methods);
 const errors = widgets.apiErrors(apiName, stage);

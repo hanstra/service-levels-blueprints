@@ -10,7 +10,12 @@ const methods: widgets.ApiResource[] = [
   },
 ];
 const lambdas: string[] = ["classesAPI-prod-passthrough"];
-const header = widgets.header("Classes API", "Brief description");
+const desc = `
+The Classes API, which corresponds to the User Preferences service, has **one endpoint that connects to the Reserves system** This service:
+
+* Queries for course enrollment and reserves based on user id
+`;
+const header = widgets.header("Classes API", desc, 3);
 const requests = widgets.apiRequests(apiName, stage);
 const methodRequests = widgets.apiMethodRequests(apiName, stage, methods);
 const errors = widgets.apiErrors(
