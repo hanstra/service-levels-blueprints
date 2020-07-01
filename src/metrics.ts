@@ -3,26 +3,25 @@ import { Duration } from "@aws-cdk/core";
 
 export interface ApiMetricProps {
   apiName: string;
-  stage: string; 
+  stage: string;
   path?: string;
   method?: string;
   label?: string;
   color?: string;
   metricIdx?: number;
-};
+}
 
-const apiDimensions = (props: ApiMetricProps) =>
-  ({
-    ...{ ApiName: props.apiName, Stage: props.stage }, 
-    ...(props.path ? { Resource: props.path } : {}),  // Merge Resource path into dimensions if given
-    ...(props.method ? { Method: props.method } : {}) // Merge Resource method into dimensions if given
-  });
+const apiDimensions = (props: ApiMetricProps) => ({
+  ...{ ApiName: props.apiName, Stage: props.stage },
+  ...(props.path ? { Resource: props.path } : {}), // Merge Resource path into dimensions if given
+  ...(props.method ? { Method: props.method } : {}), // Merge Resource method into dimensions if given
+});
 
-export const apiRequests = (props: ApiMetricProps) => 
-  new Metric({ 
-    region: 'us-east-1',
-    namespace: "AWS/ApiGateway", 
-    metricName: "Count", 
+export const apiRequests = (props: ApiMetricProps) =>
+  new Metric({
+    region: "us-east-1",
+    namespace: "AWS/ApiGateway",
+    metricName: "Count",
     dimensions: apiDimensions(props),
     label: props.label ?? "Requests",
     period: Duration.minutes(5),
@@ -33,29 +32,29 @@ export const apiRequests = (props: ApiMetricProps) =>
 export const apiErrors = (props: ApiMetricProps) => {
   const dimensions = apiDimensions(props);
   const idx = props.metricIdx ?? 0;
-  const errors4xx = new Metric({ 
-    region: 'us-east-1',
-    namespace: "AWS/ApiGateway", 
-    metricName: "4XXError", 
+  const errors4xx = new Metric({
+    region: "us-east-1",
+    namespace: "AWS/ApiGateway",
+    metricName: "4XXError",
     dimensions,
     label: "4xx",
     period: Duration.minutes(5),
     statistic: Statistic.SUM,
   });
-  const errors5xx = new Metric({ 
-    region: 'us-east-1',
-    namespace: "AWS/ApiGateway", 
-    metricName: "5XXError", 
+  const errors5xx = new Metric({
+    region: "us-east-1",
+    namespace: "AWS/ApiGateway",
+    metricName: "5XXError",
     dimensions,
     label: "5xx",
     period: Duration.minutes(5),
     statistic: Statistic.SUM,
   });
-  const requests = new Metric({ 
-    region: 'us-east-1',
-    namespace: "AWS/ApiGateway", 
-    metricName: "Count", 
-    dimensions, 
+  const requests = new Metric({
+    region: "us-east-1",
+    namespace: "AWS/ApiGateway",
+    metricName: "Count",
+    dimensions,
     label: "Requests",
     period: Duration.minutes(5),
     statistic: Statistic.SUM,
@@ -63,31 +62,31 @@ export const apiErrors = (props: ApiMetricProps) => {
 
   return {
     rate4xx: new MathExpression({
-      label: props.label ?? '4xx',
+      label: props.label ?? "4xx",
       color: props.color,
       expression: `errors4xx_${idx}/requests_${idx}*100`,
-      usingMetrics: { 
-        [`requests_${idx}`]: requests, 
+      usingMetrics: {
+        [`requests_${idx}`]: requests,
         [`errors4xx_${idx}`]: errors4xx,
-      }
-    }), 
+      },
+    }),
     rate5xx: new MathExpression({
-      label: props.label ?? '5xx',
+      label: props.label ?? "5xx",
       color: props.color,
       expression: `errors5xx_${idx}/requests_${idx}*100`,
-      usingMetrics: { 
-        [`requests_${idx}`]: requests, 
+      usingMetrics: {
+        [`requests_${idx}`]: requests,
         [`errors5xx_${idx}`]: errors5xx,
-      }
+      },
     }),
   };
-}
+};
 
-export const apiLatency = (props: ApiMetricProps, percentile: Number) =>
-  new Metric({ 
-    region: 'us-east-1',
-    namespace: "AWS/ApiGateway", 
-    metricName: "Latency", 
+export const apiLatency = (props: ApiMetricProps, percentile: number) =>
+  new Metric({
+    region: "us-east-1",
+    namespace: "AWS/ApiGateway",
+    metricName: "Latency",
     dimensions: apiDimensions(props),
     label: props.label ?? "Latency",
     period: Duration.minutes(5),
@@ -95,51 +94,50 @@ export const apiLatency = (props: ApiMetricProps, percentile: Number) =>
     color: props.color,
   });
 
-export const lambdaConcurrentExecutions = (lambda: string) => 
-  new Metric({ 
-    region: 'us-east-1',
-    namespace: "AWS/Lambda", 
-    metricName: "ConcurrentExecutions", 
-    dimensions: { FunctionName: lambda }, 
+export const lambdaConcurrentExecutions = (lambda: string) =>
+  new Metric({
+    region: "us-east-1",
+    namespace: "AWS/Lambda",
+    metricName: "ConcurrentExecutions",
+    dimensions: { FunctionName: lambda },
     label: lambda,
     period: Duration.minutes(5),
     statistic: "Maximum",
   });
 
 export const lambdaThrottles = (lambda: string) =>
-  new Metric({ 
-    region: 'us-east-1',
-    namespace: "AWS/Lambda", 
-    metricName: "Throttles", 
-    dimensions: { FunctionName: lambda }, 
+  new Metric({
+    region: "us-east-1",
+    namespace: "AWS/Lambda",
+    metricName: "Throttles",
+    dimensions: { FunctionName: lambda },
     label: lambda,
     period: Duration.minutes(5),
     statistic: "Maximum",
   });
 
 export const lambdaDurations = (lambda: string) =>
-  new Metric({ 
-    region: 'us-east-1',
-    namespace: "AWS/Lambda", 
-    metricName: "Duration", 
+  new Metric({
+    region: "us-east-1",
+    namespace: "AWS/Lambda",
+    metricName: "Duration",
     dimensions: { FunctionName: lambda },
     label: lambda,
     period: Duration.minutes(5),
     statistic: "p99.7",
   });
 
-
 export interface CloudfrontMetricProps {
   distributionId: string;
   label?: string;
   color?: string;
-};
+}
 
 export const cloudfrontRequests = (props: CloudfrontMetricProps) =>
   new Metric({
-    region: 'us-east-1',
-    namespace: "AWS/CloudFront", 
-    metricName: "Requests", 
+    region: "us-east-1",
+    namespace: "AWS/CloudFront",
+    metricName: "Requests",
     dimensions: { Region: "Global", DistributionId: props.distributionId },
     label: props.label ?? "Requests",
     period: Duration.minutes(5),
@@ -148,21 +146,21 @@ export const cloudfrontRequests = (props: CloudfrontMetricProps) =>
   });
 
 export const cloudfrontErrors = (props: CloudfrontMetricProps) => ({
-  rate4xx: new Metric({ 
-    region: 'us-east-1',
-    namespace: "AWS/CloudFront", 
-    metricName: "4xxErrorRate", 
-    dimensions: { Region: "Global", DistributionId: props.distributionId }, 
+  rate4xx: new Metric({
+    region: "us-east-1",
+    namespace: "AWS/CloudFront",
+    metricName: "4xxErrorRate",
+    dimensions: { Region: "Global", DistributionId: props.distributionId },
     label: props.label ?? "4xx",
     period: Duration.minutes(5),
     statistic: Statistic.AVERAGE,
     color: props.color,
   }),
-  rate5xx: new Metric({ 
-    region: 'us-east-1',
-    namespace: "AWS/CloudFront", 
-    metricName: "5xxErrorRate", 
-    dimensions: { Region: "Global", DistributionId: props.distributionId }, 
+  rate5xx: new Metric({
+    region: "us-east-1",
+    namespace: "AWS/CloudFront",
+    metricName: "5xxErrorRate",
+    dimensions: { Region: "Global", DistributionId: props.distributionId },
     label: props.label ?? "5xx",
     period: Duration.minutes(5),
     statistic: Statistic.AVERAGE,
@@ -171,10 +169,10 @@ export const cloudfrontErrors = (props: CloudfrontMetricProps) => ({
 });
 
 export const cloudfrontLatency = (props: CloudfrontMetricProps) =>
-  new Metric({ 
-    region: 'us-east-1',
-    namespace: "AWS/CloudFront", 
-    metricName: "OriginLatency", 
+  new Metric({
+    region: "us-east-1",
+    namespace: "AWS/CloudFront",
+    metricName: "OriginLatency",
     label: props.label ?? "Cache Miss Latency",
     dimensions: { Region: "Global", DistributionId: props.distributionId },
     period: Duration.minutes(5),
@@ -183,13 +181,13 @@ export const cloudfrontLatency = (props: CloudfrontMetricProps) =>
   });
 
 export const cloudfrontCacheMisses = (props: CloudfrontMetricProps) =>
-  new Metric({ 
-    region: 'us-east-1',
-    namespace: "AWS/CloudFront", 
-    metricName: "OriginLatency", 
-    dimensions: { Region: "Global", DistributionId: props.distributionId }, 
+  new Metric({
+    region: "us-east-1",
+    namespace: "AWS/CloudFront",
+    metricName: "OriginLatency",
+    dimensions: { Region: "Global", DistributionId: props.distributionId },
     label: props.label ?? "Cache Miss Count",
     period: Duration.minutes(5),
     statistic: Statistic.SAMPLE_COUNT,
     color: props.color,
-  })
+  });

@@ -3,49 +3,232 @@
   "aws-cdk:enableDiffNoFail": "true",
   "duty-officer-email": "hesburgh-libraries-duty-office-list@nd.edu",
   "library-slos": [
-    { "title": "Library - CDN", "type": "CloudfrontAvailability", "distributionId": "E1560Z89H1UDHK", "sloThreshold": 0.999 },
-    { "title": "Library - CDN", "type": "CloudfrontLatency", "distributionId": "E1560Z89H1UDHK", "sloThreshold": 0.95, "latencyThreshold": 1300 },
-    
-    { "title": "Hours", "type": "ApiAvailability", "apiName": "monarchLibguides-prod", "sloThreshold": 0.99 },
-    { "title": "Hours", "type": "ApiLatency", "apiName": "monarchLibguides-prod", "sloThreshold": 0.95, "latencyThreshold": 2000 },
-    { "title": "Hours", "type": "ApiLatency", "apiName": "monarchLibguides-prod", "sloThreshold": 0.50, "latencyThreshold": 1000 },
+    {
+      "title": "Library - CDN",
+      "type": "CloudfrontAvailability",
+      "distributionId": "E1560Z89H1UDHK",
+      "sloThreshold": 0.999
+    },
+    {
+      "title": "Library - CDN",
+      "type": "CloudfrontLatency",
+      "distributionId": "E1560Z89H1UDHK",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 1300
+    },
 
-    { "title": "User Preferences", "type": "ApiAvailability", "apiName": "userPreferences-prod", "sloThreshold": 0.99 },
-    { "title": "User Preferences", "type": "ApiLatency", "apiName": "userPreferences-prod", "sloThreshold": 0.95, "latencyThreshold": 2500 },
-    { "title": "User Preferences", "type": "ApiLatency", "apiName": "userPreferences-prod", "sloThreshold": 0.50, "latencyThreshold": 500 },
+    {
+      "title": "Hours",
+      "type": "ApiAvailability",
+      "apiName": "monarchLibguides-prod",
+      "sloThreshold": 0.99
+    },
+    {
+      "title": "Hours",
+      "type": "ApiLatency",
+      "apiName": "monarchLibguides-prod",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 2000
+    },
+    {
+      "title": "Hours",
+      "type": "ApiLatency",
+      "apiName": "monarchLibguides-prod",
+      "sloThreshold": 0.5,
+      "latencyThreshold": 1000
+    },
 
-    { "title": "Content", "type": "ApiAvailability", "apiName": "contentfuldirect-prod", "sloThreshold": 0.99 },
-    { "title": "Content", "type": "ApiLatency", "apiName": "contentfuldirect-prod", "sloThreshold": 0.95, "latencyThreshold": 300 },
+    {
+      "title": "User Preferences",
+      "type": "ApiAvailability",
+      "apiName": "userPreferences-prod",
+      "sloThreshold": 0.99
+    },
+    {
+      "title": "User Preferences",
+      "type": "ApiLatency",
+      "apiName": "userPreferences-prod",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 2500
+    },
+    {
+      "title": "User Preferences",
+      "type": "ApiLatency",
+      "apiName": "userPreferences-prod",
+      "sloThreshold": 0.5,
+      "latencyThreshold": 500
+    },
 
-    { "title": "Classes", "type": "ApiAvailability", "apiName": "classesAPI-prod", "sloThreshold": 0.90 },
-    { "title": "Classes", "type": "ApiLatency", "apiName": "classesAPI-prod", "sloThreshold": 0.95, "latencyThreshold": 3500 },
-    { "title": "Classes", "type": "ApiLatency", "apiName": "classesAPI-prod", "sloThreshold": 0.75, "latencyThreshold": 2000 },
+    {
+      "title": "Content",
+      "type": "ApiAvailability",
+      "apiName": "contentfuldirect-prod",
+      "sloThreshold": 0.99
+    },
+    {
+      "title": "Content",
+      "type": "ApiLatency",
+      "apiName": "contentfuldirect-prod",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 300
+    },
 
-    { "title": "Directory", "type": "ApiAvailability", "apiName": "recommendEngine-prod", "sloThreshold": 0.99 },
-    { "title": "Directory", "type": "ApiLatency", "apiName": "recommendEngine-prod", "sloThreshold": 0.95, "latencyThreshold": 2000 },
-    { "title": "Directory", "type": "ApiLatency", "apiName": "recommendEngine-prod", "sloThreshold": 0.50, "latencyThreshold": 1000 },
+    {
+      "title": "Classes",
+      "type": "ApiAvailability",
+      "apiName": "classesAPI-prod",
+      "sloThreshold": 0.9
+    },
+    {
+      "title": "Classes",
+      "type": "ApiLatency",
+      "apiName": "classesAPI-prod",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 3500
+    },
+    {
+      "title": "Classes",
+      "type": "ApiLatency",
+      "apiName": "classesAPI-prod",
+      "sloThreshold": 0.75,
+      "latencyThreshold": 2000
+    },
 
-    { "title": "Gatekeeper", "type": "ApiAvailability", "apiName": "gatekeeper-prod", "sloThreshold": 0.95 },
-    { "title": "Gatekeeper", "type": "ApiLatency", "apiName": "gatekeeper-prod", "sloThreshold": 0.95, "latencyThreshold": 7000 },
-    { "title": "Gatekeeper", "type": "ApiLatency", "apiName": "gatekeeper-prod", "sloThreshold": 0.75, "latencyThreshold": 2000 }
+    {
+      "title": "Directory",
+      "type": "ApiAvailability",
+      "apiName": "recommendEngine-prod",
+      "sloThreshold": 0.99
+    },
+    {
+      "title": "Directory",
+      "type": "ApiLatency",
+      "apiName": "recommendEngine-prod",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 2000
+    },
+    {
+      "title": "Directory",
+      "type": "ApiLatency",
+      "apiName": "recommendEngine-prod",
+      "sloThreshold": 0.5,
+      "latencyThreshold": 1000
+    },
+
+    {
+      "title": "Gatekeeper",
+      "type": "ApiAvailability",
+      "apiName": "gatekeeper-prod",
+      "sloThreshold": 0.95
+    },
+    {
+      "title": "Gatekeeper",
+      "type": "ApiLatency",
+      "apiName": "gatekeeper-prod",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 7000
+    },
+    {
+      "title": "Gatekeeper",
+      "type": "ApiLatency",
+      "apiName": "gatekeeper-prod",
+      "sloThreshold": 0.75,
+      "latencyThreshold": 2000
+    }
   ],
   "marble-slos": [
-    { "title": "Unified Website CDN", "type": "CloudfrontAvailability", "distributionId": "E1CQ4QNYUH0XVY", "sloThreshold": 0.99999 },
-    { "title": "Unified Website CDN", "type": "CloudfrontLatency", "distributionId": "E1CQ4QNYUH0XVY", "sloThreshold": 0.95, "latencyThreshold": 1000 },
+    {
+      "title": "Unified Website CDN",
+      "type": "CloudfrontAvailability",
+      "distributionId": "E1CQ4QNYUH0XVY",
+      "sloThreshold": 0.99999
+    },
+    {
+      "title": "Unified Website CDN",
+      "type": "CloudfrontLatency",
+      "distributionId": "E1CQ4QNYUH0XVY",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 1000
+    },
 
-    { "title": "IIIF Image Service API", "type": "ApiAvailability", "apiName": "marble-image-service-prod-api", "sloThreshold": 0.97 },
-    { "title": "IIIF Image Service API", "type": "ApiLatency", "apiName": "marble-image-service-prod-api", "sloThreshold": 0.9, "latencyThreshold": 4000 },
-    { "title": "IIIF Image Service API", "type": "ApiLatency", "apiName": "marble-image-service-prod-api", "sloThreshold": 0.95, "latencyThreshold": 5000 },
+    {
+      "title": "IIIF Image Service API",
+      "type": "ApiAvailability",
+      "apiName": "marble-image-service-prod-api",
+      "sloThreshold": 0.97
+    },
+    {
+      "title": "IIIF Image Service API",
+      "type": "ApiLatency",
+      "apiName": "marble-image-service-prod-api",
+      "sloThreshold": 0.9,
+      "latencyThreshold": 4000
+    },
+    {
+      "title": "IIIF Image Service API",
+      "type": "ApiLatency",
+      "apiName": "marble-image-service-prod-api",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 5000
+    },
 
-    { "title": "IIIF Manifest CDN", "type": "CloudfrontAvailability", "distributionId": "E3HBCYMQHK5E6P", "sloThreshold": 0.999 },
-    { "title": "IIIF Manifest CDN", "type": "CloudfrontLatency", "distributionId": "E3HBCYMQHK5E6P", "sloThreshold": 0.95, "latencyThreshold": 750 },
+    {
+      "title": "IIIF Manifest CDN",
+      "type": "CloudfrontAvailability",
+      "distributionId": "E3HBCYMQHK5E6P",
+      "sloThreshold": 0.999
+    },
+    {
+      "title": "IIIF Manifest CDN",
+      "type": "CloudfrontLatency",
+      "distributionId": "E3HBCYMQHK5E6P",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 750
+    },
 
-    { "title": "User Content API", "type": "ApiAvailability", "apiName": "Marble User Content Service", "sloThreshold": 0.97 },
-    { "title": "User Content API", "type": "ApiLatency", "apiName": "Marble User Content Service", "sloThreshold": 0.95, "latencyThreshold": 500 },
-    { "title": "User Content API", "type": "ApiLatency", "apiName": "Marble User Content Service", "sloThreshold": 0.99, "latencyThreshold": 2000 },
+    {
+      "title": "User Content API",
+      "type": "ApiAvailability",
+      "apiName": "Marble User Content Service",
+      "sloThreshold": 0.97
+    },
+    {
+      "title": "User Content API",
+      "type": "ApiLatency",
+      "apiName": "Marble User Content Service",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 500
+    },
+    {
+      "title": "User Content API",
+      "type": "ApiLatency",
+      "apiName": "Marble User Content Service",
+      "sloThreshold": 0.99,
+      "latencyThreshold": 2000
+    },
 
-    { "title": "Search API", "type": "ElasticSearchAvailability", "accountId": "230391840102", "domainName": "marble-elasticsearch-prod", "sloThreshold": 0.99 },
-    { "title": "Search API", "type": "ElasticSearchLatency", "accountId": "230391840102", "domainName": "marble-elasticsearch-prod", "sloThreshold": 0.95, "latencyThreshold": 200 },
-    { "title": "Search API", "type": "ElasticSearchLatency", "accountId": "230391840102", "domainName": "marble-elasticsearch-prod", "sloThreshold": 0.99, "latencyThreshold": 1000 }
+    {
+      "title": "Search API",
+      "type": "ElasticSearchAvailability",
+      "accountId": "230391840102",
+      "domainName": "marble-elasticsearch-prod",
+      "sloThreshold": 0.99
+    },
+    {
+      "title": "Search API",
+      "type": "ElasticSearchLatency",
+      "accountId": "230391840102",
+      "domainName": "marble-elasticsearch-prod",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 200
+    },
+    {
+      "title": "Search API",
+      "type": "ElasticSearchLatency",
+      "accountId": "230391840102",
+      "domainName": "marble-elasticsearch-prod",
+      "sloThreshold": 0.99,
+      "latencyThreshold": 1000
+    }
   ]
 }
