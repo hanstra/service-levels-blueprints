@@ -25,7 +25,16 @@ const lambdas: string[] = [
   "monarchLibguides-prod-hours",
   "monarchLibguides-prod-newEvent",
 ];
-const header = widgets.header("User Preferences API", "Brief description");
+const desc = `
+The User Preference API, which corresponds to the user preferences service, has **five endpoints that interact with a DynamoDB service** This API:
+
+* Queries for circ history based on user id
+* Updates the opt-in circ status for patrons
+* Tracks email subscriptions
+* Records favorite resources selected by patron
+* Maintains the full list of settings for every patron account
+`;
+const header = widgets.header("User Preferences API", desc, 4);
 const requests = widgets.apiRequests(apiName, stage);
 const methodRequests = widgets.apiMethodRequests(apiName, stage, methods);
 const errors = widgets.apiErrors(apiName, stage);

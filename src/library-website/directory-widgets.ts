@@ -8,7 +8,12 @@ const methods: widgets.ApiResource[] = [
   { path: "/librarianInfo", methods: ["GET"] },
 ];
 const lambdas: string[] = ["recommendEngine-prod-librarianInfo"];
-const header = widgets.header("Directory API", "Brief description");
+const desc = `
+The Directory API, which corresponds to the User Preferences service, has **one endpoint that connects to the staff directory (Factotum)** This service:
+
+* Queries for staff information based on netid
+`;
+const header = widgets.header("Directory API", desc, 3);
 const requests = widgets.apiRequests(apiName, stage);
 const methodRequests = widgets.apiMethodRequests(apiName, stage, methods);
 const errors = widgets.apiErrors(apiName, stage);

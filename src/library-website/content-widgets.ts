@@ -17,7 +17,14 @@ const lambdas: string[] = [
   "contentfuldirect-prod-directquery",
   "contentfuldirect-prod-purlquery",
 ];
-const header = widgets.header("Content API", "Brief description");
+const desc = `
+The content API **has seven primary endpoints that interact with the Contentful API** and pass data through to the calling application. This gateway provides the following data:
+
+* Secure Archive Retention Policy data
+* Permanent URL (PURL) data
+* Library website content
+`;
+const header = widgets.header("Content API", desc, 3);
 const requests = widgets.apiRequests(apiName, stage);
 const methodRequests = widgets.apiMethodRequests(apiName, stage, methods);
 const errors = widgets.apiErrors(apiName, stage);

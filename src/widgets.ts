@@ -13,10 +13,10 @@ export interface ApiResource {
 const flatten2DArray = (arr: any[][]) =>
   arr.reduce((acc, val) => acc.concat(val), []);
 
-export const header = (name: string, desc: string) =>
+export const header = (name: string, desc: string, height?: number) =>
   new TextWidget({
     width: 24,
-    height: 2,
+    height: height ?? 2,
     markdown: `\n# ${name}\n${desc}\n`,
   });
 export const apiRequests = (
