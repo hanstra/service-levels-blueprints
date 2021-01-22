@@ -3,15 +3,17 @@ import {
   GraphWidget,
   LegendPosition,
   HorizontalAnnotation,
+  MathExpression,
 } from "@aws-cdk/aws-cloudwatch";
+import { Duration } from "@aws-cdk/core";
 import * as metrics from "./metrics";
 
-export interface ApiResource {
-  path: string;
-  methods: string[];
-}
-const flatten2DArray = (arr: any[][]) =>
-  arr.reduce((acc, val) => acc.concat(val), []);
+// export interface ApiResource {
+//   path: string;
+//   methods: string[];
+// }
+// const flatten2DArray = (arr: any[][]) =>
+//   arr.reduce((acc, val) => acc.concat(val), []);
 
 export const header = (name: string, desc: string, height?: number) =>
   new TextWidget({
@@ -27,7 +29,7 @@ export const apiRequests = (
   new GraphWidget({
     title: "Requests",
     width: 6,
-    height: 3,
+    height: 4,
     left: [metrics.apiRequests({ apiName, stage })],
     legendPosition: LegendPosition.HIDDEN,
     leftAnnotations: horizontalAnnotations ?? [],
@@ -35,27 +37,22 @@ export const apiRequests = (
 export const apiMethodRequests = (
   apiName: string,
   stage: string,
-  resources: ApiResource[],
   horizontalAnnotations?: HorizontalAnnotation[]
 ) =>
   new GraphWidget({
     title: "Method Requests",
     width: 6,
-    height: 3,
-    left: flatten2DArray(
-      resources.map((resource) =>
-        resource.methods.map((method) =>
-          metrics.apiRequests({
-            apiName,
-            stage,
-            path: resource.path,
-            method,
-            label: `${method} ${resource.path}`,
-          })
-        )
-      )
-    ),
-    leftYAxis: { label: "", showUnits: false },
+    height: 4,
+    left: [
+      new MathExpression({
+        expression: `SEARCH('{AWS/ApiGateway,ApiName,Method,Resource,Stage} (\"Count\") ApiName=${apiName} Stage=${stage}', 'Sum', ${Duration.minutes(
+          5
+        ).toSeconds()})`,
+        label: " ", // blank out the label so it displays the found function name
+        usingMetrics: {},
+      }),
+    ],
+    leftYAxis: { label: "Count", showUnits: false },
     legendPosition: LegendPosition.HIDDEN,
     leftAnnotations: horizontalAnnotations ?? [],
   });
@@ -68,7 +65,7 @@ export const apiErrors = (
   return new GraphWidget({
     title: "Errors",
     width: 6,
-    height: 3,
+    height: 4,
     left: [errors.rate4xx, errors.rate5xx],
     legendPosition: LegendPosition.HIDDEN,
     leftAnnotations: horizontalAnnotations ?? [],
@@ -78,29 +75,21 @@ export const apiErrors = (
 export const apiMethodErrors = (
   apiName: string,
   stage: string,
-  resources: ApiResource[],
   horizontalAnnotations?: HorizontalAnnotation[]
 ) => {
-  let i = 0;
-  const methodErrorRates = resources.map((resource) =>
-    resource.methods.map(
-      (method) =>
-        metrics.apiErrors({
-          apiName,
-          stage,
-          path: resource.path,
-          method,
-          metricIdx: i++,
-          label: `${method} ${resource.path}`,
-        }).rate5xx
-    )
-  );
-
   return new GraphWidget({
     title: "Method 5XX Errors",
     width: 6,
-    height: 3,
-    left: flatten2DArray(methodErrorRates),
+    height: 4,
+    left: [
+      new MathExpression({
+        expression: `SEARCH('{AWS/ApiGateway,ApiName,Method,Resource,Stage} (\"5XXError\") ApiName=${apiName} Stage=${stage}', 'Average', ${Duration.minutes(
+          5
+        ).toSeconds()})*100`,
+        label: " ", // blank out the label so it displays the found function name
+        usingMetrics: {},
+      }),
+    ],
     legendPosition: LegendPosition.HIDDEN,
     leftAnnotations: horizontalAnnotations ?? [],
     leftYAxis: { label: "Percent", showUnits: false, min: 0, max: 100 },
@@ -115,48 +104,40 @@ export const apiLatency = (
   new GraphWidget({
     title: `Latency P${percentile}`,
     width: 6,
-    height: 3,
+    height: 4,
     left: [metrics.apiLatency({ apiName, stage }, percentile)],
     legendPosition: LegendPosition.HIDDEN,
     leftAnnotations: horizontalAnnotations ?? [],
-    leftYAxis: { label: "", showUnits: true },
+    leftYAxis: { label: "Milliseconds", showUnits: false },
   });
 export const apiMethodLatency = (
   apiName: string,
   stage: string,
   percentile: number,
-  resources: ApiResource[],
   horizontalAnnotations?: HorizontalAnnotation[]
 ) =>
   new GraphWidget({
     title: `Method Latency P${percentile}`,
     width: 6,
-    height: 3,
-    left: flatten2DArray(
-      resources.map((resource) =>
-        resource.methods.map((method) =>
-          metrics.apiLatency(
-            {
-              apiName,
-              stage,
-              path: resource.path,
-              method,
-              label: `${method} ${resource.path}`,
-            },
-            percentile
-          )
-        )
-      )
-    ),
+    height: 4,
+    left: [
+      new MathExpression({
+        expression: `SEARCH('{AWS/ApiGateway,ApiName,Method,Resource,Stage} (\"Latency\") ApiName=${apiName} Stage=${stage}', 'p${percentile}', ${Duration.minutes(
+          5
+        ).toSeconds()})`,
+        label: " ", // blank out the label so it displays the found function name
+        usingMetrics: {},
+      }),
+    ],
     legendPosition: LegendPosition.HIDDEN,
     leftAnnotations: horizontalAnnotations ?? [],
-    leftYAxis: { label: "", showUnits: true },
+    leftYAxis: { label: "Milliseconds", showUnits: false },
   });
 export const apiLambdaSaturation = (lambdas: string[]) =>
   new GraphWidget({
     title: "Lambda Saturation",
     width: 6,
-    height: 3,
+    height: 4,
     left: lambdas.map((lambda) => metrics.lambdaConcurrentExecutions(lambda)),
     right: lambdas.map((lambda) => metrics.lambdaThrottles(lambda)),
     legendPosition: LegendPosition.HIDDEN,
@@ -168,17 +149,18 @@ export const apiLambdaDurations = (lambdas: string[]) =>
   new GraphWidget({
     title: "Lambda Duration",
     width: 6,
-    height: 3,
+    height: 4,
     left: lambdas.map((lambda) => metrics.lambdaDurations(lambda)),
     legendPosition: LegendPosition.HIDDEN,
     leftAnnotations: [{ label: "Integration Timeout", value: 30000 }],
+    leftYAxis: { label: "Milliseconds", showUnits: false },
   });
 export const cloudfrontErrors = (distributionId: string) => {
   const errors = metrics.cloudfrontErrors({ distributionId });
   return new GraphWidget({
     title: "Errors",
     width: 12,
-    height: 3,
+    height: 4,
     left: [errors.rate4xx, errors.rate5xx],
     leftYAxis: { min: 0, max: 100 },
   });
@@ -187,7 +169,7 @@ export const cloudfrontLatency = (distributionId: string) =>
   new GraphWidget({
     title: "Cache Miss Latency",
     width: 12,
-    height: 3,
+    height: 4,
     left: [metrics.cloudfrontLatency({ distributionId })],
     right: [metrics.cloudfrontCacheMisses({ distributionId })],
   });

@@ -26,7 +26,7 @@ export class LibraryWebsiteServiceLevelsStack extends cdk.Stack {
     );
     const alarms = new SLOAlarms(this, "Alarms", {
       slos,
-      dashboardLink: `https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#dashboards:name=Library-Website`,
+      dashboardLink: `https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#dashboards:name=Library-Website-Summary`,
       runbookLink:
         "https://github.com/ndlib/TechnologistsPlaybook/tree/master/run-books",
       alarmsDashboardLink: `https://console.aws.amazon.com/cloudwatch/home?region=${

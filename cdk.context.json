@@ -20,20 +20,20 @@
     {
       "title": "Hours",
       "type": "ApiAvailability",
-      "apiName": "monarchLibguides-prod",
+      "apiName": "libcal-gateway-prod",
       "sloThreshold": 0.99
     },
     {
       "title": "Hours",
       "type": "ApiLatency",
-      "apiName": "monarchLibguides-prod",
+      "apiName": "libcal-gateway-prod",
       "sloThreshold": 0.95,
       "latencyThreshold": 2000
     },
     {
       "title": "Hours",
       "type": "ApiLatency",
-      "apiName": "monarchLibguides-prod",
+      "apiName": "libcal-gateway-prod",
       "sloThreshold": 0.5,
       "latencyThreshold": 1000
     },
@@ -116,24 +116,52 @@
     },
 
     {
-      "title": "Gatekeeper",
+      "title": "Aleph Gateway",
       "type": "ApiAvailability",
-      "apiName": "gatekeeper-prod",
-      "sloThreshold": 0.95
+      "apiName": "aleph-gateway-prod",
+      "sloThreshold": 0.96
     },
     {
-      "title": "Gatekeeper",
+      "title": "Aleph Gateway",
       "type": "ApiLatency",
-      "apiName": "gatekeeper-prod",
+      "apiName": "aleph-gateway-prod",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 4000
+    },
+
+    {
+      "title": "Illiad Gateway",
+      "type": "ApiAvailability",
+      "apiName": "illiad-gateway-prod",
+      "sloThreshold": 0.98
+    },
+    {
+      "title": "Illiad Gateway",
+      "type": "ApiLatency",
+      "apiName": "illiad-gateway-prod",
+      "sloThreshold": 0.75,
+      "latencyThreshold": 4000
+    },
+    {
+      "title": "Illiad Gateway",
+      "type": "ApiLatency",
+      "apiName": "illiad-gateway-prod",
       "sloThreshold": 0.95,
       "latencyThreshold": 7000
     },
+
     {
-      "title": "Gatekeeper",
+      "title": "Primo Gateway",
+      "type": "ApiAvailability",
+      "apiName": "primo-gateway-prod",
+      "sloThreshold": 0.99
+    },
+    {
+      "title": "Primo Gateway",
       "type": "ApiLatency",
-      "apiName": "gatekeeper-prod",
-      "sloThreshold": 0.75,
-      "latencyThreshold": 2000
+      "apiName": "primo-gateway-prod",
+      "sloThreshold": 0.95,
+      "latencyThreshold": 1000
     }
   ],
   "marble-slos": [
