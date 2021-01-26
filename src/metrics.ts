@@ -95,36 +95,30 @@ export const apiLatency = (props: ApiMetricProps, percentile: number) =>
   });
 
 export const lambdaConcurrentExecutions = (lambda: string) =>
-  new Metric({
-    region: "us-east-1",
-    namespace: "AWS/Lambda",
-    metricName: "ConcurrentExecutions",
-    dimensions: { FunctionName: lambda },
-    label: lambda,
-    period: Duration.minutes(5),
-    statistic: "Maximum",
+  new MathExpression({
+    expression: `SEARCH('{AWS/Lambda,FunctionName} MetricName=ConcurrentExecutions FunctionName=${lambda}', 'Maximum', ${Duration.minutes(
+      5
+    ).toSeconds()})`,
+    label: " ", // blank out the label so it displays the found function name
+    usingMetrics: {},
   });
 
 export const lambdaThrottles = (lambda: string) =>
-  new Metric({
-    region: "us-east-1",
-    namespace: "AWS/Lambda",
-    metricName: "Throttles",
-    dimensions: { FunctionName: lambda },
-    label: lambda,
-    period: Duration.minutes(5),
-    statistic: "Maximum",
+  new MathExpression({
+    expression: `SEARCH('{AWS/Lambda,FunctionName} MetricName=Throttles FunctionName=${lambda}', 'Maximum', ${Duration.minutes(
+      5
+    ).toSeconds()})`,
+    label: " ", // blank out the label so it displays the found function name
+    usingMetrics: {},
   });
 
 export const lambdaDurations = (lambda: string) =>
-  new Metric({
-    region: "us-east-1",
-    namespace: "AWS/Lambda",
-    metricName: "Duration",
-    dimensions: { FunctionName: lambda },
-    label: lambda,
-    period: Duration.minutes(5),
-    statistic: "p99.7",
+  new MathExpression({
+    expression: `SEARCH('{AWS/Lambda,FunctionName} MetricName=Duration FunctionName=${lambda}', 'p99.7', ${Duration.minutes(
+      5
+    ).toSeconds()})`,
+    label: " ", // blank out the label so it displays the found function name
+    usingMetrics: {},
   });
 
 export interface CloudfrontMetricProps {
