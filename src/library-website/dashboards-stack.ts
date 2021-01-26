@@ -38,22 +38,6 @@ export class DashboardsStack extends cdk.Stack {
       slos,
     });
 
-    new ApiDashboard(this, "GatekeeperAPIDashboard", {
-      dashboardName: "Library-Website-Gatekeeper-API",
-      start,
-      headerName: "Gatekeeper API",
-      apiName: "gatekeeper-prod",
-      stage: "prod",
-      desc: [
-        "The Gatekeeper API has **four primary endpoints** that interact with three upstream services which are:",
-        "",
-        "* Primo",
-        "* Aleph",
-        "* ILLiad",
-      ].join("\n"),
-      slos,
-    });
-
     new ApiDashboard(this, "AlephAPIDashboard", {
       dashboardName: "Library-Website-Aleph-Gateway-API",
       start,
@@ -108,20 +92,6 @@ export class DashboardsStack extends cdk.Stack {
         "",
         "* Provide hours information.",
         "* Manage space/seating information.",
-      ].join("\n"),
-      slos,
-    });
-
-    new ApiDashboard(this, "DirectoryAPIDashboard", {
-      dashboardName: "Library-Website-Directory-API",
-      start,
-      headerName: "Directory API",
-      apiName: "recommendEngine-prod",
-      stage: "prod",
-      desc: [
-        "The Directory API, which corresponds to the User Preferences service, has **one endpoint that connects to the staff directory (Factotum)** This service:",
-        "",
-        "* Queries for staff information based on netid",
       ].join("\n"),
       slos,
     });
