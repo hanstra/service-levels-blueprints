@@ -39,28 +39,34 @@ const apis = [
     color: "#2ca02c",
   },
   {
-    apiName: "recommendEngine-prod",
-    stage: "prod",
-    label: "Directory API",
-    color: "#d62728",
-  },
-  {
     apiName: "libcal-gateway-prod",
     stage: "prod",
     label: "LibCal Gateway API",
+    color: "#d62728",
+  },
+  {
+    apiName: "aleph-gateway-prod",
+    stage: "prod",
+    label: "Aleph Gateway API",
     color: "#9467bd",
   },
   {
-    apiName: "gatekeeper-prod",
+    apiName: "illiad-gateway-prod",
     stage: "prod",
-    label: "GateKeeper API",
+    label: "Illiad Gateway API",
     color: "#8c564b",
+  },
+  {
+    apiName: "primo-gateway-prod",
+    stage: "prod",
+    label: "Primo Gateway API",
+    color: "#e377c2",
   },
   {
     apiName: "classesAPI-prod",
     stage: "prod",
     label: "Classes API",
-    color: "#e377c2",
+    color: "#c7c7c7",
   },
   {
     apiName: "userPreferences-prod",
@@ -72,10 +78,11 @@ const apis = [
 const lambdas: string[] = [
   "classesAPI-prod",
   "contentfuldirect-prod",
-  "recommendEngine-prod",
-  "gatekeeper-prod",
   "contentfulmaps-prod",
   "libcal-gateway-prod",
+  "aleph-gateway-prod",
+  "illiad-gateway-prod",
+  "primo-gateway-prod",
   "userPreferences-prod",
 ];
 const cdnDistributionId = "E1560Z89H1UDHK";

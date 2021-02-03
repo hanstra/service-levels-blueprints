@@ -95,27 +95,6 @@
     },
 
     {
-      "title": "Directory",
-      "type": "ApiAvailability",
-      "apiName": "recommendEngine-prod",
-      "sloThreshold": 0.99
-    },
-    {
-      "title": "Directory",
-      "type": "ApiLatency",
-      "apiName": "recommendEngine-prod",
-      "sloThreshold": 0.95,
-      "latencyThreshold": 2000
-    },
-    {
-      "title": "Directory",
-      "type": "ApiLatency",
-      "apiName": "recommendEngine-prod",
-      "sloThreshold": 0.5,
-      "latencyThreshold": 1000
-    },
-
-    {
       "title": "Aleph Gateway",
       "type": "ApiAvailability",
       "apiName": "aleph-gateway-prod",
