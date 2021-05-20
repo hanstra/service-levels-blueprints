@@ -98,14 +98,22 @@
       "title": "Aleph Gateway",
       "type": "ApiAvailability",
       "apiName": "aleph-gateway-prod",
-      "sloThreshold": 0.96
+      "sloThreshold": 0.96,
+      "alarmsEnabled": {
+        "High": true,
+        "Low": false
+      }
     },
     {
       "title": "Aleph Gateway",
       "type": "ApiLatency",
       "apiName": "aleph-gateway-prod",
       "sloThreshold": 0.95,
-      "latencyThreshold": 4000
+      "latencyThreshold": 4000,
+      "alarmsEnabled": {
+        "High": true,
+        "Low": false
+      }
     },
 
     {
