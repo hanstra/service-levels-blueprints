@@ -148,7 +148,11 @@
       "type": "ApiLatency",
       "apiName": "primo-gateway-prod",
       "sloThreshold": 0.95,
-      "latencyThreshold": 1000
+      "latencyThreshold": 1000,
+      "alarmsEnabled": {
+        "High": true,
+        "Low": false
+      }
     }
   ],
   "marble-slos": [
