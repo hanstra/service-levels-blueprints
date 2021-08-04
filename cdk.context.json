@@ -18,20 +18,20 @@
     },
 
     {
-      "title": "Hours",
+      "title": "Library - Hours",
       "type": "ApiAvailability",
       "apiName": "libcal-gateway-prod",
       "sloThreshold": 0.99
     },
     {
-      "title": "Hours",
+      "title": "Library - Hours",
       "type": "ApiLatency",
       "apiName": "libcal-gateway-prod",
       "sloThreshold": 0.95,
       "latencyThreshold": 2000
     },
     {
-      "title": "Hours",
+      "title": "Library - Hours",
       "type": "ApiLatency",
       "apiName": "libcal-gateway-prod",
       "sloThreshold": 0.5,
@@ -39,20 +39,20 @@
     },
 
     {
-      "title": "User Preferences",
+      "title": "Library - User Preferences",
       "type": "ApiAvailability",
       "apiName": "userPreferences-prod",
       "sloThreshold": 0.99
     },
     {
-      "title": "User Preferences",
+      "title": "Library - User Preferences",
       "type": "ApiLatency",
       "apiName": "userPreferences-prod",
       "sloThreshold": 0.95,
       "latencyThreshold": 2500
     },
     {
-      "title": "User Preferences",
+      "title": "Library - User Preferences",
       "type": "ApiLatency",
       "apiName": "userPreferences-prod",
       "sloThreshold": 0.5,
@@ -60,13 +60,13 @@
     },
 
     {
-      "title": "Content",
+      "title": "Library - Content",
       "type": "ApiAvailability",
       "apiName": "contentfuldirect-prod",
       "sloThreshold": 0.99
     },
     {
-      "title": "Content",
+      "title": "Library - Content",
       "type": "ApiLatency",
       "apiName": "contentfuldirect-prod",
       "sloThreshold": 0.95,
@@ -74,20 +74,20 @@
     },
 
     {
-      "title": "Classes",
+      "title": "Library - Classes",
       "type": "ApiAvailability",
       "apiName": "classesAPI-prod",
       "sloThreshold": 0.9
     },
     {
-      "title": "Classes",
+      "title": "Library - Classes",
       "type": "ApiLatency",
       "apiName": "classesAPI-prod",
       "sloThreshold": 0.95,
       "latencyThreshold": 3500
     },
     {
-      "title": "Classes",
+      "title": "Library - Classes",
       "type": "ApiLatency",
       "apiName": "classesAPI-prod",
       "sloThreshold": 0.75,
@@ -95,7 +95,7 @@
     },
 
     {
-      "title": "Aleph Gateway",
+      "title": "Library - Aleph Gateway",
       "type": "ApiAvailability",
       "apiName": "aleph-gateway-prod",
       "sloThreshold": 0.96,
@@ -105,7 +105,7 @@
       }
     },
     {
-      "title": "Aleph Gateway",
+      "title": "Library - Aleph Gateway",
       "type": "ApiLatency",
       "apiName": "aleph-gateway-prod",
       "sloThreshold": 0.95,
@@ -117,7 +117,7 @@
     },
 
     {
-      "title": "Illiad Gateway",
+      "title": "Library - Illiad Gateway",
       "type": "ApiAvailability",
       "apiName": "illiad-gateway-prod",
       "sloThreshold": 0.98
@@ -130,7 +130,7 @@
       "latencyThreshold": 4000
     },
     {
-      "title": "Illiad Gateway",
+      "title": "Library - Illiad Gateway",
       "type": "ApiLatency",
       "apiName": "illiad-gateway-prod",
       "sloThreshold": 0.95,
@@ -138,13 +138,13 @@
     },
 
     {
-      "title": "Primo Gateway",
+      "title": "Library - Primo Gateway",
       "type": "ApiAvailability",
       "apiName": "primo-gateway-prod",
       "sloThreshold": 0.99
     },
     {
-      "title": "Primo Gateway",
+      "title": "Library - Primo Gateway",
       "type": "ApiLatency",
       "apiName": "primo-gateway-prod",
       "sloThreshold": 0.95,
