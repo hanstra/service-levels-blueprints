@@ -1,28 +1,121 @@
-import * as cdk from "@aws-cdk/core";
-import { Dashboard } from "@aws-cdk/aws-cloudwatch";
-import { rows as summaryRows } from "./summary-widgets";
-import { rows as cdnRows } from "./cdn-widgets";
-import { ApiDashboard } from "../api-dashboard";
+import { StackProps, Stack, Construct } from "@aws-cdk/core";
+import { ServerlessApiDashboard, CloudfrontDashboard, SummaryDashboard } from "@ndlib/ndlib-cdk";
+import { ApiLatencySLO } from "@ndlib/ndlib-cdk/lib/slos/types";
 
-export class DashboardsStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+export class DashboardsStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
     const start = "-PT24H";
     const slos = scope.node.tryGetContext("library-slos");
 
-    new Dashboard(this, "SummaryDashboard", {
+    new SummaryDashboard(this, "SummaryDashboard", {
       dashboardName: "Library-Website-Summary",
       start,
-      widgets: summaryRows,
+      services: [
+        {
+          typeName: 'Cloudfront',
+          distributionId: 'E1560Z89H1UDHK',
+          label: 'HTTP CDN',
+          color: '#1f77b4',
+        },
+        {
+          typeName: 'APIGateway',
+          apiName: 'contentfuldirect-prod',
+          stage: 'prod',
+          label: 'Content API',
+          color: '#ff7f0e',
+        },
+        {
+          typeName: 'APIGateway',
+          apiName: 'contentfulmaps-prod',
+          stage: 'prod',
+          label: 'Maps API',
+          color: '#2ca02c',
+        },
+        {
+          typeName: 'APIGateway',
+          apiName: 'libcal-gateway-prod',
+          stage: 'prod',
+          label: 'LibCal Gateway API',
+          color: '#d62728',
+        },
+        {
+          typeName: 'APIGateway',
+          apiName: 'aleph-gateway-prod',
+          stage: 'prod',
+          label: 'Aleph Gateway API',
+          color: '#9467bd',
+        },
+        {
+          typeName: 'APIGateway',
+          apiName: 'illiad-gateway-prod',
+          stage: 'prod',
+          label: 'Illiad Gateway API',
+          color: '#8c564b',
+        },
+        {
+          typeName: 'APIGateway',
+          apiName: 'primo-gateway-prod',
+          stage: 'prod',
+          label: 'Primo Gateway API',
+          color: '#e377c2',
+        },
+        {
+          typeName: 'APIGateway',
+          apiName: 'classesAPI-prod',
+          stage: 'prod',
+          label: 'Classes API',
+          color: '#c7c7c7',
+        },
+        {
+          typeName: 'APIGateway',
+          apiName: 'userPreferences-prod',
+          stage: 'prod',
+          label: 'User Preferences API',
+          color: '#7f7f7f',
+        },
+      ],
+      lambdaNames: [
+        'classesAPI-prod',
+        'contentfuldirect-prod',
+        'contentfulmaps-prod',
+        'libcal-gateway-prod',
+        'aleph-gateway-prod',
+        'illiad-gateway-prod',
+        'primo-gateway-prod',
+        'userPreferences-prod',
+      ]
     });
 
-    new Dashboard(this, "CDNDashboard", {
+    new CloudfrontDashboard(this, "CDNDashboard", {
       dashboardName: "Library-Website-HTTP-CDN",
+      distributionId: "E1560Z89H1UDHK",
       start,
-      widgets: cdnRows,
+      headerName: "HTTP CDN",
+      desc: [
+        "",
+        "Usurper is the single page application that is the front end for the library website. ",
+        "",
+        "* This originates from an S3 bucket where the page is stored along with javascript, image and CSS assets. ",
+        "* There are three redundant nginX servers that have this CloudFront as their source.",
+        "",
+        "**We are measuring the number of cache misses and the latency when a cache miss occurs relative to this CloudFront.**",
+        "",
+      ].join("\n"),
     });
 
-    new ApiDashboard(this, "ContentAPIDashboard", {
+
+    // Filters and maps Latency SLOs to latencyPercentiles expected by ServerlessApiDashboard
+    const slosToLatencyPercentiles = (slos: ApiLatencySLO[], apiName: string) => {
+      const filteredSlos = slos.filter(
+        (slo: ApiLatencySLO) => slo.apiName === apiName && slo.type === 'ApiLatency',
+      )
+      if(filteredSlos.length === 0)
+        return undefined
+      return filteredSlos.map(slo => ({ percentile: slo.sloThreshold, threshold: slo.latencyThreshold, thresholdLabel: 'SLO'}))
+    }
+
+    new ServerlessApiDashboard(this, "ContentAPIDashboard", {
       dashboardName: "Library-Website-Content-API",
       start,
       headerName: "Content API",
@@ -35,10 +128,10 @@ export class DashboardsStack extends cdk.Stack {
         "* Permanent URL (PURL) data",
         "* Library website content",
       ].join("\n"),
-      slos,
+      latencyPercentiles: slosToLatencyPercentiles(slos, "contentfuldirect-prod"),
     });
 
-    new ApiDashboard(this, "AlephAPIDashboard", {
+    new ServerlessApiDashboard(this, "AlephAPIDashboard", {
       dashboardName: "Library-Website-Aleph-Gateway-API",
       start,
       headerName: "Aleph Gateway API",
@@ -52,10 +145,10 @@ export class DashboardsStack extends cdk.Stack {
         "* Retrieve and update user and item information",
         "* Get checked out items, previously checked out items, and pending requests",
       ].join("\n"),
-      slos,
+      latencyPercentiles: slosToLatencyPercentiles(slos, "aleph-gateway-prod"),
     });
 
-    new ApiDashboard(this, "PrimoAPIDashboard", {
+    new ServerlessApiDashboard(this, "PrimoAPIDashboard", {
       dashboardName: "Library-Website-Primo-Gateway-API",
       start,
       headerName: "Primo Gateway API",
@@ -66,22 +159,21 @@ export class DashboardsStack extends cdk.Stack {
         "Primo Gateway is primarily used by the Primo front end to get physical location information. It will also be",
         "used by the Library Website front end to get user information from primo including saved searches and favorited items.",
       ].join("\n"),
-      slos,
+      latencyPercentiles: slosToLatencyPercentiles(slos, "primo-gateway-prod"),
     });
 
-    new ApiDashboard(this, "IlliadAPIDashboard", {
+    new ServerlessApiDashboard(this, "IlliadAPIDashboard", {
       dashboardName: "Library-Website-Illiad-Gateway-API",
       start,
       headerName: "Illiad Gateway API",
       headerSize: 2,
       apiName: "illiad-gateway-prod",
       stage: "prod",
-      desc:
-        "Used by Library Website to fetch pending and checked out items from ILLiad APIs.",
-      slos,
+      desc: "Used by Library Website to fetch pending and checked out items from ILLiad APIs.",
+      latencyPercentiles: slosToLatencyPercentiles(slos, "illiad-gateway-prod"),
     });
 
-    new ApiDashboard(this, "LibCalGatewayAPIDashboard", {
+    new ServerlessApiDashboard(this, "LibCalGatewayAPIDashboard", {
       dashboardName: "Library-Website-LibCalGateway-API",
       start,
       headerName: "LibCal Gateway API",
@@ -93,10 +185,10 @@ export class DashboardsStack extends cdk.Stack {
         "* Provide hours information.",
         "* Manage space/seating information.",
       ].join("\n"),
-      slos,
+      latencyPercentiles: slosToLatencyPercentiles(slos, "libcal-gateway-prod"),
     });
 
-    new ApiDashboard(this, "MapsAPIDashboard", {
+    new ServerlessApiDashboard(this, "MapsAPIDashboard", {
       dashboardName: "Library-Website-Maps-API",
       start,
       headerName: "Maps API",
@@ -107,10 +199,10 @@ export class DashboardsStack extends cdk.Stack {
         "",
         "* Queries Contentful using item record data points to return the correct map URI",
       ].join("\n"),
-      slos,
+      latencyPercentiles: slosToLatencyPercentiles(slos, "contentfulmaps-prod"),
     });
 
-    new ApiDashboard(this, "UserPreferencesAPIDashboard", {
+    new ServerlessApiDashboard(this, "UserPreferencesAPIDashboard", {
       dashboardName: "Library-Website-UserPreferences-API",
       start,
       headerName: "User Preferences API",
@@ -126,10 +218,10 @@ export class DashboardsStack extends cdk.Stack {
         "* Records favorite resources selected by patron",
         "* Maintains the full list of settings for every patron account",
       ].join("\n"),
-      slos,
+      latencyPercentiles: slosToLatencyPercentiles(slos, "userPreferences-prod"),
     });
 
-    new ApiDashboard(this, "ClassesAPIDashboard", {
+    new ServerlessApiDashboard(this, "ClassesAPIDashboard", {
       dashboardName: "Library-Website-Classes-API",
       start,
       headerName: "Classes API",
@@ -140,7 +232,7 @@ export class DashboardsStack extends cdk.Stack {
         "",
         "* Queries for course enrollment and reserves based on user id",
       ].join("\n"),
-      slos,
+      latencyPercentiles: slosToLatencyPercentiles(slos, "classesAPI-prod"),
     });
   }
 }
