@@ -14,7 +14,11 @@
       "type": "CloudfrontLatency",
       "distributionId": "E1560Z89H1UDHK",
       "sloThreshold": 0.95,
-      "latencyThreshold": 1300
+      "latencyThreshold": 1300,
+      "alarmsEnabled": {
+        "High": true,
+        "Low": false
+      }
     },
 
     {
