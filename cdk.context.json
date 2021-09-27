@@ -7,7 +7,11 @@
       "title": "Library - CDN",
       "type": "CloudfrontAvailability",
       "distributionId": "E1560Z89H1UDHK",
-      "sloThreshold": 0.999
+      "sloThreshold": 0.999,
+      "alarmsEnabled": {
+        "High": true,
+        "Low": false
+      }
     },
     {
       "title": "Library - CDN",
