@@ -10,7 +10,7 @@
       "sloThreshold": 0.999,
       "alarmsEnabled": {
         "High": true,
-        "Low": false
+        "Low": true
       }
     },
     {
@@ -21,7 +21,7 @@
       "latencyThreshold": 1300,
       "alarmsEnabled": {
         "High": true,
-        "Low": false
+        "Low": true
       }
     },
 
