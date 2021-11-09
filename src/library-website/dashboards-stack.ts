@@ -97,7 +97,6 @@ export class DashboardsStack extends Stack {
         "Usurper is the single page application that is the front end for the library website. ",
         "",
         "* This originates from an S3 bucket where the page is stored along with javascript, image and CSS assets. ",
-        "* There are three redundant nginX servers that have this CloudFront as their source.",
         "",
         "**We are measuring the number of cache misses and the latency when a cache miss occurs relative to this CloudFront.**",
         "",
