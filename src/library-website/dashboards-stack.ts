@@ -1,6 +1,7 @@
-import { StackProps, Stack, Construct } from "@aws-cdk/core";
-import { ServerlessApiDashboard, CloudfrontDashboard, SummaryDashboard } from "@ndlib/ndlib-cdk";
-import { ApiLatencySLO } from "@ndlib/ndlib-cdk/lib/slos/types";
+import { StackProps, Stack } from "aws-cdk-lib";
+import { ServerlessApiDashboard, CloudfrontDashboard, SummaryDashboard } from "@ndlib/ndlib-cdk2";
+import { ApiLatencySLO } from "@ndlib/ndlib-cdk2/lib/slos/types";
+import { Construct } from 'constructs'
 
 export class DashboardsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {

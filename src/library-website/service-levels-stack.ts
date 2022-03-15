@@ -1,15 +1,15 @@
-import * as cdk from "@aws-cdk/core";
-import { Fn } from "@aws-cdk/core";
+import { Fn, StackProps, Stack } from "aws-cdk-lib";
 import {
   SLOAlarms,
   SLOAlarmsDashboard,
   SLOPerformanceDashboard,
-} from "@ndlib/ndlib-cdk";
-import { CfnDashboard } from "@aws-cdk/aws-cloudwatch";
-import * as subs from "@aws-cdk/aws-sns-subscriptions";
+} from "@ndlib/ndlib-cdk2";
+import { CfnDashboard } from "aws-cdk-lib/aws-cloudwatch";
+import * as subs from "aws-cdk-lib/aws-sns-subscriptions";
+import { Construct } from "constructs";
 
-export class LibraryWebsiteServiceLevelsStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+export class LibraryWebsiteServiceLevelsStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
     const slos = scope.node.tryGetContext("library-slos");
     const alarmsDash = new SLOAlarmsDashboard(this, "AlarmsDashboard", {
@@ -30,7 +30,7 @@ export class LibraryWebsiteServiceLevelsStack extends cdk.Stack {
       runbookLink:
         "https://github.com/ndlib/TechnologistsPlaybook/tree/master/run-books",
       alarmsDashboardLink: `https://console.aws.amazon.com/cloudwatch/home?region=${
-        cdk.Stack.of(this).region
+        Stack.of(this).region
       }#dashboards:name=${alarmsDashboardName}`,
     });
 

@@ -1,5 +1,4 @@
 {
-  "@aws-cdk/core:enableStackNameDuplicates": "true",
   "aws-cdk:enableDiffNoFail": "true",
   "duty-officer-email": "hesburgh-libraries-duty-office-list@nd.edu",
   "library-slos": [
