@@ -1,6 +1,10 @@
 {
   "aws-cdk:enableDiffNoFail": "true",
   "duty-officer-email": "hesburgh-libraries-duty-office-list@nd.edu",
+  "owner": "esu",
+  "contact": "lib-esu-group@nd.edu",
+  "projectName": "service-levels-blueprints",
+  "description": "Infrastructure library website service level objectives (SLOs)",
   "library-slos": [
     {
       "title": "Library - CDN",
@@ -12,17 +16,6 @@
         "Low": true
       }
     },
-    {
-      "title": "Library - CDN",
-      "type": "CloudfrontLatency",
-      "distributionId": "E1560Z89H1UDHK",
-      "sloThreshold": 0.95,
-      "latencyThreshold": 1300,
-      "alarmsEnabled": {
-        "High": true,
-        "Low": true
-      }
-    },
 
     {
       "title": "Library - Hours",
@@ -30,40 +23,12 @@
       "apiName": "libcal-gateway-prod",
       "sloThreshold": 0.99
     },
-    {
-      "title": "Library - Hours",
-      "type": "ApiLatency",
-      "apiName": "libcal-gateway-prod",
-      "sloThreshold": 0.95,
-      "latencyThreshold": 2000
-    },
-    {
-      "title": "Library - Hours",
-      "type": "ApiLatency",
-      "apiName": "libcal-gateway-prod",
-      "sloThreshold": 0.5,
-      "latencyThreshold": 1000
-    },
 
     {
       "title": "Library - User Preferences",
       "type": "ApiAvailability",
       "apiName": "userPreferences-prod",
       "sloThreshold": 0.99
-    },
-    {
-      "title": "Library - User Preferences",
-      "type": "ApiLatency",
-      "apiName": "userPreferences-prod",
-      "sloThreshold": 0.95,
-      "latencyThreshold": 2500
-    },
-    {
-      "title": "Library - User Preferences",
-      "type": "ApiLatency",
-      "apiName": "userPreferences-prod",
-      "sloThreshold": 0.5,
-      "latencyThreshold": 500
     },
 
     {
@@ -71,13 +36,6 @@
       "type": "ApiAvailability",
       "apiName": "contentfuldirect-prod",
       "sloThreshold": 0.99
-    },
-    {
-      "title": "Library - Content",
-      "type": "ApiLatency",
-      "apiName": "contentfuldirect-prod",
-      "sloThreshold": 0.95,
-      "latencyThreshold": 300
     },
 
     {
@@ -85,20 +43,6 @@
       "type": "ApiAvailability",
       "apiName": "classesAPI-prod",
       "sloThreshold": 0.9
-    },
-    {
-      "title": "Library - Classes",
-      "type": "ApiLatency",
-      "apiName": "classesAPI-prod",
-      "sloThreshold": 0.95,
-      "latencyThreshold": 3500
-    },
-    {
-      "title": "Library - Classes",
-      "type": "ApiLatency",
-      "apiName": "classesAPI-prod",
-      "sloThreshold": 0.75,
-      "latencyThreshold": 2000
     },
 
     {
@@ -111,17 +55,6 @@
         "Low": true
       }
     },
-    {
-      "title": "Library - Aleph Gateway",
-      "type": "ApiLatency",
-      "apiName": "aleph-gateway-prod",
-      "sloThreshold": 0.95,
-      "latencyThreshold": 4000,
-      "alarmsEnabled": {
-        "High": true,
-        "Low": true
-      }
-    },
 
     {
       "title": "Library - Illiad Gateway",
@@ -129,33 +62,12 @@
       "apiName": "illiad-gateway-prod",
       "sloThreshold": 0.98
     },
-    {
-      "title": "Illiad Gateway",
-      "type": "ApiLatency",
-      "apiName": "illiad-gateway-prod",
-      "sloThreshold": 0.75,
-      "latencyThreshold": 4000
-    },
-    {
-      "title": "Library - Illiad Gateway",
-      "type": "ApiLatency",
-      "apiName": "illiad-gateway-prod",
-      "sloThreshold": 0.95,
-      "latencyThreshold": 7000
-    },
 
     {
       "title": "Library - Primo Gateway",
       "type": "ApiAvailability",
       "apiName": "primo-gateway-prod",
       "sloThreshold": 0.99
-    },
-    {
-      "title": "Library - Primo Gateway",
-      "type": "ApiLatency",
-      "apiName": "primo-gateway-prod",
-      "sloThreshold": 0.95,
-      "latencyThreshold": 2000
     }
   ]
 }
